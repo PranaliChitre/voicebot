@@ -1,0 +1,186 @@
+{
+    "streams": {
+      "PCM": {
+        "description": "Physics, Chemistry, Mathematics.",
+        "subjects": ["Physics", "Chemistry", "Mathematics"],
+        "career_options": ["Engineering", "Architecture", "Research"],
+        "top_colleges": {
+          "IITs": ["IIT Bombay", "IIT Delhi", "IIT Madras", "IIT Kharagpur"],
+          "NITs": ["NIT Trichy", "NIT Surathkal", "NIT Rourkela", "NIT Warangal"],
+          "Mumbai_Colleges": ["VJTI Mumbai", "SPIT Mumbai", "DJ Sanghvi College of Engineering"]
+        }
+      },
+      "PCMB": {
+        "description": "Physics, Chemistry, Mathematics, Biology.",
+        "subjects": ["Physics", "Chemistry", "Mathematics", "Biology"],
+        "career_options": ["Medical", "Engineering", "Research"],
+        "top_colleges": {
+          "IITs": ["IIT Bombay", "IIT Delhi", "IIT Madras", "IIT Kanpur"],
+          "NITs": ["NIT Calicut", "NIT Nagpur", "NIT Jaipur"],
+          "Mumbai_Colleges": ["St. Xavier's College", "KJ Somaiya College of Science and Commerce", "Sophia College for Women"]
+        }
+      },
+      "PCB": {
+        "description": "Physics, Chemistry, Biology.",
+        "subjects": ["Physics", "Chemistry", "Biology"],
+        "career_options": ["Medicine", "Biotechnology", "Pharmacy"],
+        "top_colleges": {
+          "Mumbai_Colleges": ["Grant Medical College", "Seth GS Medical College", "KJ Somaiya Medical College"]
+        }
+      },
+      "Commerce": {
+        "description": "Focus on business, finance, and economics.",
+        "subjects": ["Accountancy", "Business Studies", "Economics"],
+        "career_options": ["CA", "BBA", "Finance"],
+        "top_colleges": {
+          "Mumbai_Colleges": ["NMIMS Mumbai", "HR College of Commerce and Economics", "Jai Hind College"]
+        }
+      },
+      "Arts": {
+        "description": "Creative fields including humanities and social sciences.",
+        "subjects": ["Literature", "History", "Psychology"],
+        "career_options": ["Journalism", "Teaching", "Content Creation"],
+        "top_colleges": {
+          "Mumbai_Colleges": ["St. Xavier's College", "Sophia College for Women", "Jai Hind College"]
+        }
+      }
+    },
+    "professions": {
+      "Engineering": {
+        "description": "Design and development of machines, structures.",
+        "eligibility": "12th standard with Physics, Chemistry, and Mathematics.",
+        "exams": ["JEE Main", "JEE Advanced", "State Engineering Entrance Exams"],
+        "career_path": "B.Tech/B.E., followed by specializations in fields like Mechanical, Civil, or Electrical Engineering.",
+        "top_colleges": {
+          "IITs": ["IIT Bombay", "IIT Delhi", "IIT Madras"],
+          "NITs": ["NIT Trichy", "NIT Surathkal", "NIT Rourkela"],
+          "Mumbai_Colleges": ["VJTI Mumbai", "SPIT Mumbai", "DJ Sanghvi College of Engineering"]
+        }
+      },
+      "Doctor": {
+        "description": "Healthcare professionals including doctors.",
+        "eligibility": "12th standard with Physics, Chemistry, and Biology.",
+        "exams": ["NEET", "AIIMS", "JIPMER"],
+        "career_path": "MBBS, followed by specialization in fields like Surgery, Pediatrics, or Psychiatry.",
+        "top_colleges": {
+          "Mumbai_Colleges": ["Grant Medical College", "Seth GS Medical College", "KJ Somaiya Medical College"]
+        }
+      },
+      "CA": {
+        "description": "Managing money, investments, and financial planning.",
+        "eligibility": "Graduation in any stream, preferably Commerce.",
+        "exams": ["CPT", "CA Foundation", "CFA Level 1"],
+        "career_path": "B.Com, CA, MBA with specialization in Finance or Investment Banking.",
+        "top_colleges": {
+          "Mumbai_Colleges": ["NMIMS Mumbai", "HR College of Commerce and Economics", "Jai Hind College"]
+        }
+      },
+      "Teacher": {
+        "description": "Educators in various subjects and levels.",
+        "eligibility": "Graduation in the relevant subject, followed by a B.Ed.",
+        "exams": ["CTET", "TET", "State-level Teaching Exams"],
+        "career_path": "B.Ed, followed by teaching certification; opportunities in schools, colleges, and tutoring.",
+        "top_colleges": {
+          "Mumbai_Colleges": ["St. Xavier's College of Education", "Bombay Teachers’ Training College"]
+        }
+      },
+      "Information Technology": {
+        "description": "Professionals working with technology and computer systems.",
+        "eligibility": "Graduation in Computer Science or IT.",
+        "exams": ["GATE (for post-graduation)", "Coding Competitions"],
+        "career_path": "Degrees in Computer Science or IT, followed by roles in software development, networking, or cybersecurity.",
+        "top_colleges": {
+          "IITs": ["IIT Bombay", "IIT Delhi", "IIT Madras"],
+          "NITs": ["NIT Trichy", "NIT Surathkal"],
+          "Mumbai_Colleges": ["VJTI Mumbai", "SPIT Mumbai"]
+        }
+      }
+    },
+    "government_jobs": {
+      "types": [
+        "Civil Services",
+        "Defense Services",
+        "Public Sector Undertakings",
+        "Railways",
+        "Banking",
+        "Teaching",
+        "Healthcare",
+        "Police Services"
+      ],
+      "exams": {
+        "Civil Services": ["UPSC", "State PSC"],
+        "Defense Services": ["NDA", "CDS"],
+        "Banking": ["IBPS", "SBI PO"],
+        "Teaching": ["CTET", "TET"],
+        "Railways": ["RRB Exams"]
+      },
+      "skills_required": [
+        "Communication Skills",
+        "Problem-solving",
+        "Analytical Skills",
+        "Time Management",
+        "Teamwork",
+        "Leadership"
+      ]
+    },
+    "Vocational": {
+      "description": "Skill-based education for various trades.",
+      "courses": [
+        {
+          "course_name": "Plumbing",
+          "duration": "6 months to 1 year",
+          "career_options": ["Plumber", "Self-employed"]
+        },
+        {
+          "course_name": "Electrical Work",
+          "duration": "6 months to 1 year",
+          "career_options": ["Electrician", "Technician"]
+        },
+        {
+          "course_name": "Carpentry",
+          "duration": "6 months to 1 year",
+          "career_options": ["Carpenter", "Woodworking Technician"]
+        },
+        {
+          "course_name": "Welding",
+          "duration": "6 months to 1 year",
+          "career_options": ["Welder", "Fabricator"]
+        },
+        {
+          "course_name": "Beauty Therapy",
+          "duration": "3 to 6 months",
+          "career_options": ["Beautician", "Makeup Artist"]
+        },
+        {
+          "course_name": "Culinary Arts",
+          "duration": "1 year",
+          "career_options": ["Chef", "Restaurant Manager"],
+          "top_colleges": {
+            "Mumbai_Colleges": ["Institute of Hotel Management (IHM) Mumbai", "Dadar Catering College"]
+          }
+        },
+        {
+          "course_name": "Graphic Designing",
+          "duration": "6 months to 1 year",
+          "career_options": ["Graphic Designer", "Freelancer"]
+        },
+        {
+          "course_name": "Fashion Designing",
+          "duration": "1 to 3 years",
+          "career_options": ["Fashion Designer", "Stylist"],
+          "top_colleges": {
+            "Mumbai_Colleges": ["National Institute of Fashion Technology (NIFT) Mumbai", "SNDT Women's University"]
+          }
+        }
+      ]
+    },
+    "Diploma": {
+      "description": "Short-term courses in various fields.",
+      "subjects": ["Diploma in Engineering", "Diploma in Nursing"],
+      "career_options": ["Technician", "Assistant roles"],
+      "top_colleges": {
+        "Mumbai_Colleges": ["VJTI Mumbai", "Thakur Polytechnic","Bhagubai Polytechnic,Vileparle"]
+      }
+    }
+  }
+  
