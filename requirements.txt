@@ -1,0 +1,8 @@
+streamlit
+speechrecognition
+pyttsx3
+json5
+deep-translator
+spacy
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.5.0/en_core_web_sm-3.5.0.tar.gz
+pyaudio
