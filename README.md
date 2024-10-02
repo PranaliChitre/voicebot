@@ -1,1 +1,1 @@
-Educational Voice assistant for 10th grade students!
+Educational Chatbot for 10th grade students!
