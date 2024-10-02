@@ -3,6 +3,17 @@ import json
 from deep_translator import GoogleTranslator
 import spacy
 import langid
+import subprocess
+
+# Function to download SpaCy model if not already downloaded
+def ensure_spacy_model_installed():
+    try:
+        spacy.cli.download("en_core_web_sm")
+    except Exception as e:
+        st.error(f"Error downloading SpaCy model: {e}")
+
+# Ensure the SpaCy model is available
+ensure_spacy_model_installed()
 
 # Load SpaCy model for English
 nlp = spacy.load("en_core_web_sm")
@@ -21,31 +32,10 @@ def get_keywords(text):
     keywords = {token.lemma_ for token in doc if token.is_alpha and not token.is_stop}
     return keywords
 
-def format_college_response(colleges):
-    """Format the college response for better readability."""
-    return "\n".join([f"{key}: {', '.join(value)}" for key, value in colleges.items()])
-
-def format_vocational_courses(courses):
-    """Format the vocational courses response."""
-    response = "Vocational courses include:\n"
-    for course in courses:
-        response += f"- {course['course_name']} (Duration: {course['duration']}, Career Options: {', '.join(course['career_options'])})\n"
-    return response
-
-def format_diploma_info(diploma_info):
-    """Format the diploma information response."""
-    return f"Diploma courses available: {', '.join(diploma_info.get('subjects', []))}"
-
 def get_answer(question):
     """Get the answer to the given question using keyword search and NLP analysis."""
     keywords = get_keywords(question)
     response = "Sorry, I don't have an answer to that."
-
-    # Check for government jobs skills
-    if 'skills' in question.lower() or 'कौशल्य' in question.lower():
-        gov_jobs = data.get('government_jobs', {})
-        if gov_jobs and gov_jobs.get('skills_required'):
-            return f"Skills required for government jobs include: {', '.join(gov_jobs['skills_required'])}"
 
     # Function to check if keywords match any category in the data
     def check_keywords_in_data(category):
@@ -54,7 +44,7 @@ def get_answer(question):
                 return info
         return None
 
-    # Check in educational streams
+    # Check in streams
     stream_info = check_keywords_in_data('streams')
     if stream_info:
         if 'eligibility' in question.lower():
@@ -71,7 +61,7 @@ def get_answer(question):
     # Check in professions
     profession_info = check_keywords_in_data('professions')
     if profession_info:
-        if 'skills' in question.lower() or 'कौशल्य' in question.lower():
+        if any(keyword in ['skills', 'कौशल्य', 'कौशल्ये'] for keyword in keywords):
             return profession_info.get('skills_required', 'No skills information available.')
         if 'exams' in question.lower() or 'परीक्षा' in question.lower():
             return profession_info.get('exams', 'No exam information available.')
@@ -84,18 +74,12 @@ def get_answer(question):
             return format_college_response(top_colleges)
         return profession_info.get('description', 'No detailed info available.')
 
-    # Check for government jobs types
+    # Check for government jobs
     gov_jobs = data.get('government_jobs', {})
     if any(keyword.lower() in job.lower() for job in gov_jobs.get('types', []) for keyword in keywords):
+        if any(keyword in ['skills', 'कौशल्य', 'कौशल्ये'] for keyword in keywords):
+            return gov_jobs.get('skills_required', 'No skills information available.')
         return f"Government job sectors include: {', '.join(gov_jobs['types'])}"
-
-    # Check for exams in government jobs
-    if 'exams' in question.lower() or 'परीक्षा' in question.lower():
-        exams_response = []
-        for job_type, exams in gov_jobs.get('exams', {}).items():
-            exams_response.append(f"{job_type}: {', '.join(exams)}")
-        if exams_response:
-            return "Exams for government jobs include:\n" + "\n".join(exams_response)
 
     # Check for vocational courses
     if 'vocational' in question.lower():
@@ -109,6 +93,20 @@ def get_answer(question):
         return format_diploma_info(diploma_info)
 
     return response
+
+def format_college_response(colleges):
+    """Format the response for college information."""
+    if isinstance(colleges, dict):
+        return "\n".join([f"{key}: {', '.join(value)}" for key, value in colleges.items()])
+    return colleges
+
+def format_vocational_courses(courses):
+    """Format the response for vocational courses."""
+    return "\n".join([f"{course['course_name']} ({course['duration']}) - Career Options: {', '.join(course['career_options'])}" for course in courses])
+
+def format_diploma_info(diploma_info):
+    """Format the response for diploma information."""
+    return f"Subjects: {', '.join(diploma_info.get('subjects', []))}\nCareer Options: {', '.join(diploma_info.get('career_options', []))}"
 
 def translate_text(text, dest):
     """Translate the given text to the destination language."""
