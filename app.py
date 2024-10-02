@@ -13,8 +13,12 @@ recognizer = sr.Recognizer()
 engine = pyttsx3.init()
 
 # Load the JSON data
-with open('new.json') as f:
-    data = json.load(f)
+try:
+    with open('new.json') as f:
+        data = json.load(f)
+except FileNotFoundError:
+    st.write("Error: 'new.json' file not found. Please make sure it is available.")
+    data = {}  # Empty dictionary as fallback
 
 def speak(text, lang):
     """Speak the given text in the specified language."""
@@ -40,7 +44,7 @@ def get_answer(question, original_lang):
     response = "Sorry, I don't have an answer to that."
 
     # Check for matches in educational streams
-    for stream, info in data['streams'].items():
+    for stream, info in data.get('streams', {}).items():
         if any(keyword.lower() in stream.lower() for keyword in keywords):
             match_found = True
             if 'eligibility' in question.lower():
@@ -63,7 +67,7 @@ def get_answer(question, original_lang):
 
     # Check for matches in professions
     if not match_found:
-        for profession, details in data['professions'].items():
+        for profession, details in data.get('professions', {}).items():
             if any(keyword.lower() in profession.lower() for keyword in keywords):
                 match_found = True
                 if 'exams' in question.lower() or 'परीक्षा' in question.lower():
@@ -86,8 +90,8 @@ def get_answer(question, original_lang):
 
     # Check for matches in government jobs
     if not match_found:
-        gov_jobs = data['government_jobs']
-        if any(keyword.lower() in job.lower() for job in gov_jobs['types'] for keyword in keywords):
+        gov_jobs = data.get('government_jobs', {})
+        if any(keyword.lower() in job.lower() for job in gov_jobs.get('types', []) for keyword in keywords):
             match_found = True
             response = f"Government job sectors include: {', '.join(gov_jobs['types'])}"
 
@@ -95,7 +99,7 @@ def get_answer(question, original_lang):
     if not match_found:
         if 'vocational' in question.lower():
             match_found = True
-            vocational_info = data['Vocational']
+            vocational_info = data.get('Vocational', {})
             courses = vocational_info.get('courses', [])
             response = "Vocational Courses:\n"
             for course in courses:
@@ -106,7 +110,7 @@ def get_answer(question, original_lang):
     if not match_found:
         if 'diploma' in question.lower():
             match_found = True
-            diploma_info = data['Diploma']
+            diploma_info = data.get('Diploma', {})
             if 'colleges' in question.lower() or 'top colleges' in question.lower():
                 top_colleges = diploma_info.get('top_colleges', 'No college information available.')
                 if isinstance(top_colleges, dict):
@@ -122,51 +126,48 @@ def get_answer(question, original_lang):
 
     return response
 
-
-
-
 def translate_text(text, dest):
     """Translate the given text to the destination language."""
     try:
         translated = GoogleTranslator(source='auto', target=dest).translate(text)
         return translated
     except Exception as e:
-        st.write(f"Translation error: {e}")
+        # Log the error for debugging purposes without showing it to the user
+        print(f"Translation error: {e}")
         return text  # Return the original text on error
 
 def speak(text, lang, filename="output.mp3"):
     """Speak the given text in the specified language and save to a file."""
-    
-    # Get available voices
-    voices = engine.getProperty('voices')
-    
-    # Set voice based on the selected language
-    if lang == 'hi-IN':  # Hindi
-        for voice in voices:
-            if 'hi' in voice.languages:
-                engine.setProperty('voice', voice.id)
-                break
-    elif lang == 'mr-IN':  # Marathi
-        for voice in voices:
-            if 'mr' in voice.languages:
-                engine.setProperty('voice', voice.id)
-                break
-    else:  # Default to English
-        for voice in voices:
-            if 'en' in voice.languages:
-                engine.setProperty('voice', voice.id)
-                break
-
-    # Save the text to an audio file
-    engine.save_to_file(text, filename)
     try:
+        # Get available voices
+        voices = engine.getProperty('voices')
+
+        # Set voice based on the selected language
+        if lang == 'hi-IN':  # Hindi
+            for voice in voices:
+                if 'hi' in voice.languages:
+                    engine.setProperty('voice', voice.id)
+                    break
+        elif lang == 'mr-IN':  # Marathi
+            for voice in voices:
+                if 'mr' in voice.languages:
+                    engine.setProperty('voice', voice.id)
+                    break
+        else:  # Default to English
+            for voice in voices:
+                if 'en' in voice.languages:
+                    engine.setProperty('voice', voice.id)
+                    break
+
+        # Save the text to an audio file
+        engine.save_to_file(text, filename)
         engine.runAndWait()
-    except RuntimeError:
-        pass
 
-    # Play the generated audio file in Streamlit
-    st.audio(filename)
-
+        # Play the generated audio file in Streamlit
+        st.audio(filename)
+    except Exception as e:
+        # Log the error for debugging purposes without showing it to the user
+        print(f"Speech synthesis error: {e}")
 
 def main():
     st.title("Multilingual Voicebot")
@@ -211,11 +212,11 @@ def main():
                 
             except sr.UnknownValueError:
                 st.write("Sorry, I could not understand the audio.")
-            except sr.RequestError as e:
-                st.write(f"Could not request results from Google Speech Recognition service; {e}")
+            except sr.RequestError:
+                st.write("Sorry, I'm having trouble accessing the speech recognition service.")
             except Exception as e:
-                st.write(f"An error occurred: {e}")
-
+                print(f"Error in speech recognition: {e}")
+                st.write("An error occurred while processing your question.")
 
 if __name__ == "__main__":
     main()
