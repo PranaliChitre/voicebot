@@ -1,8 +1,9 @@
-Streamlit==1.39.0
+streamlit==1.39.0
 SpeechRecognition==3.10.0
 pyttsx3==2.90
 json5==0.9.14
 deep-translator==1.10.1
-spaCy==3.7.3
 PyAudio==0.2.13
-en_core_web_sm==3.7.0
+spacy==3.7.3
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.0/en_core_web_sm-3.7.0.tar.gz#egg=en_core_web_sm
+
