@@ -136,39 +136,6 @@ def translate_text(text, dest):
         print(f"Translation error: {e}")
         return text  # Return the original text on error
 
-def speak(text, lang, filename="output.mp3"):
-    """Speak the given text in the specified language and save to a file."""
-    try:
-        # Get available voices
-        voices = engine.getProperty('voices')
-
-        # Set voice based on the selected language
-        if lang == 'hi-IN':  # Hindi
-            for voice in voices:
-                if 'hi' in voice.languages:
-                    engine.setProperty('voice', voice.id)
-                    break
-        elif lang == 'mr-IN':  # Marathi
-            for voice in voices:
-                if 'mr' in voice.languages:
-                    engine.setProperty('voice', voice.id)
-                    break
-        else:  # Default to English
-            for voice in voices:
-                if 'en' in voice.languages:
-                    engine.setProperty('voice', voice.id)
-                    break
-
-        # Save the text to an audio file
-        engine.save_to_file(text, filename)
-        engine.runAndWait()
-
-        # Play the generated audio file in Streamlit
-        st.audio(filename)
-    except Exception as e:
-        # Log the error for debugging purposes without showing it to the user
-        print(f"Speech synthesis error: {e}")
-
 def main():
     st.title("Multilingual Voicebot")
     st.write("Select a language:")
@@ -208,6 +175,7 @@ def main():
                 st.write(f"Question: {question}")
                 st.write(f"Answer: {translated_answer}")
 
+                # Speak the response
                 speak(translated_answer, lang_code)
                 
             except sr.UnknownValueError:
